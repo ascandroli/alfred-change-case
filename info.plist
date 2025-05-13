@@ -20,16 +20,6 @@
 				<key>vitoclose</key>
 				<false/>
 			</dict>
-			<dict>
-				<key>destinationuid</key>
-				<string>D1F2E7E4-E546-4CF8-B5D8-A42B2BB175B3</string>
-				<key>modifiers</key>
-				<integer>0</integer>
-				<key>modifiersubtext</key>
-				<string></string>
-				<key>vitoclose</key>
-				<false/>
-			</dict>
 		</array>
 		<key>B6600E5C-BB57-4054-827B-5688E776AEE7</key>
 		<array>
@@ -83,7 +73,8 @@
 				<key>runningsubtext</key>
 				<string>transforming text case...</string>
 				<key>script</key>
-				<string>./changecase "$1"</string>
+				<string>input="${1:-$(pbpaste)}"
+./build-cache-run-swift.sh changecase.swift "$input"</string>
 				<key>scriptargtype</key>
 				<integer>1</integer>
 				<key>scriptfile</key>
@@ -154,41 +145,6 @@
 			<key>version</key>
 			<integer>2</integer>
 		</dict>
-		<dict>
-			<key>config</key>
-			<dict>
-				<key>concurrently</key>
-				<false/>
-				<key>escaping</key>
-				<integer>102</integer>
-				<key>script</key>
-				<string>#!/bin/bash
-
-SWIFT_FILE="changecase.swift"
-EXECUTABLE="./changecase"
-HASH_FILE=".changecase.md5"
-
-CURRENT_HASH=$(md5 -q "$SWIFT_FILE")
-
-STORED_HASH=$(cat "$HASH_FILE" 2&gt;/dev/null)
-
-if [ "$CURRENT_HASH" != "$STORED_HASH" ] || [ ! -f "$EXECUTABLE" ]; then
-    swiftc "$SWIFT_FILE" -o "$EXECUTABLE" || exit 1
-fi</string>
-				<key>scriptargtype</key>
-				<integer>1</integer>
-				<key>scriptfile</key>
-				<string></string>
-				<key>type</key>
-				<integer>0</integer>
-			</dict>
-			<key>type</key>
-			<string>alfred.workflow.action.script</string>
-			<key>uid</key>
-			<string>D1F2E7E4-E546-4CF8-B5D8-A42B2BB175B3</string>
-			<key>version</key>
-			<integer>2</integer>
-		</dict>
 	</array>
 	<key>readme</key>
 	<string>Select text in any application and use the assigned hotkey to transform it.
@@ -221,22 +177,13 @@ You can also type text directly after the `case` keyword to transform that speci
 			<key>ypos</key>
 			<real>220</real>
 		</dict>
-		<key>D1F2E7E4-E546-4CF8-B5D8-A42B2BB175B3</key>
-		<dict>
-			<key>note</key>
-			<string>recompiles the script if there are changes</string>
-			<key>xpos</key>
-			<real>485</real>
-			<key>ypos</key>
-			<real>340</real>
-		</dict>
 	</dict>
 	<key>userconfigurationconfig</key>
 	<array/>
 	<key>variablesdontexport</key>
 	<array/>
 	<key>version</key>
-	<string>2.0.1</string>
+	<string>2.0.3</string>
 	<key>webaddress</key>
 	<string>https://github.com/ascandroli/alfred-change-case</string>
 </dict>
